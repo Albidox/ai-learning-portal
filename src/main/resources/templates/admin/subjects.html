@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}">Subjects</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{common/navbar :: nav}"></div>
+
+<main class="container py-5">
+    <section class="page-panel">
+        <div class="page-header">
+            <div>
+                <p class="small-label">Admin</p>
+                <h1>Subjects</h1>
+            </div>
+            <a class="primary-button inline-button" th:href="@{/admin/subjects/new}">New Subject</a>
+        </div>
+
+        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Subject</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="subject : ${subjects}">
+                    <td th:text="${subject.course.name}">Java Basics</td>
+                    <td th:text="${subject.name}">Spring Boot</td>
+                    <td th:text="${subject.description ?: '-'}">Subject description</td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(subjects)}">
+                    <td colspan="3" class="empty-text">No subjects found.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+</body>
+</html>

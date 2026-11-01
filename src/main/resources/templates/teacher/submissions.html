@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}">Submissions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{common/navbar :: nav}"></div>
+
+<main class="container py-5">
+    <section class="page-panel">
+        <div class="page-header">
+            <div>
+                <p class="small-label" th:text="${assignment.course.name}">Course</p>
+                <h1 th:text="${assignment.title}">Assignment Submissions</h1>
+            </div>
+            <a class="secondary-button inline-button" th:href="@{/teacher/assignments}">Back</a>
+        </div>
+
+        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Submitted At</th>
+                    <th>Answer</th>
+                    <th>File</th>
+                    <th>Marks</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="submission : ${submissions}">
+                    <td>
+                        <strong th:text="${submission.student.name}">Student User</strong>
+                        <span class="table-note" th:text="${submission.student.email}">student@example.test</span>
+                    </td>
+                    <td th:text="${submission.submittedAt}">2026-08-04T15:00</td>
+                    <td>
+                        <span class="answer-preview" th:text="${submission.answerText ?: 'No text answer.'}">Answer preview</span>
+                    </td>
+                    <td>
+                        <a th:if="${submission.originalFileName != null}"
+                           th:href="@{/files/submissions/{id}(id=${submission.id})}"
+                           th:text="${submission.originalFileName}">answer.pdf</a>
+                        <span th:if="${submission.originalFileName == null}" class="empty-text">No file</span>
+                    </td>
+                    <td>
+                        <span th:if="${submission.mark != null}"
+                              th:text="${submission.mark.marksAwarded + ' / ' + submission.assignment.maxMarks}">18 / 20</span>
+                        <span th:if="${submission.mark == null}" class="empty-text">Not graded</span>
+                    </td>
+                    <td>
+                        <a class="secondary-button inline-button"
+                           th:href="@{/teacher/submissions/{id}/mark(id=${submission.id})}">Mark</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(submissions)}">
+                    <td colspan="6" class="empty-text">No submissions found.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}">Users</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{common/navbar :: nav}"></div>
+
+<main class="container py-5">
+    <section class="page-panel">
+        <div class="page-header">
+            <div>
+                <p class="small-label">Admin</p>
+                <h1>Users</h1>
+            </div>
+            <a class="secondary-button" th:href="@{/admin/dashboard}">Back</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.name}">Student User</td>
+                    <td th:text="${user.email}">student@example.test</td>
+                    <td th:text="${user.role}">STUDENT</td>
+                    <td th:text="${user.enabled ? 'Enabled' : 'Disabled'}">Enabled</td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(users)}">
+                    <td colspan="4" class="empty-text">No users found.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,15 @@
+target/
+uploads/
+
+.settings/
+.classpath
+.project
+
+*.log
+*.tmp
+
+.env
+application-local.properties
+
+*.class
+*.jar

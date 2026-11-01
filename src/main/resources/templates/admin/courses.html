@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}">Courses</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{common/navbar :: nav}"></div>
+
+<main class="container py-5">
+    <section class="page-panel">
+        <div class="page-header">
+            <div>
+                <p class="small-label">Admin</p>
+                <h1>Courses</h1>
+            </div>
+            <a class="primary-button inline-button" th:href="@{/admin/courses/new}">New Course</a>
+        </div>
+
+        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="course : ${courses}">
+                    <td th:text="${course.name}">Java Basics</td>
+                    <td th:text="${course.description ?: '-'}">Course description</td>
+                    <td th:text="${course.startDate ?: '-'}">2026-08-04</td>
+                    <td th:text="${course.endDate ?: '-'}">2026-12-31</td>
+                    <td th:text="${course.active ? 'Active' : 'Inactive'}">Active</td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(courses)}">
+                    <td colspan="5" class="empty-text">No courses found.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+</body>
+</html>

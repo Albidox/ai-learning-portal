@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}">Published Lessons</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{common/navbar :: nav}"></div>
+
+<main class="container py-5">
+    <section class="page-panel">
+        <div class="page-header">
+            <div>
+                <p class="small-label">Student</p>
+                <h1>Published Lessons</h1>
+            </div>
+            <a class="secondary-button inline-button" th:href="@{/student/courses}">Back</a>
+        </div>
+
+        <div class="action-grid">
+            <a class="action-card"
+               th:each="lesson : ${lessons}"
+               th:href="@{/student/lessons/{id}(id=${lesson.id})}">
+                <strong th:text="${lesson.title}">Lesson title</strong>
+                <span th:text="${lesson.subject.name}">Subject name</span>
+                <span th:text="'Teacher: ' + ${lesson.teacher.name}">Teacher: Teacher User</span>
+            </a>
+        </div>
+
+        <p th:if="${#lists.isEmpty(lessons)}" class="empty-text">
+            No published lessons are available for this course yet.
+        </p>
+    </section>
+</main>
+</body>
+</html>

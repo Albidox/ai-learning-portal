@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}">Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{common/navbar :: nav}"></div>
+
+<main class="container py-5">
+    <section class="dashboard-panel">
+        <p class="small-label">Admin</p>
+        <h1>Admin Dashboard</h1>
+        <p class="lead">Manage users, courses, subjects, and student enrollment.</p>
+
+        <div class="action-grid">
+            <a class="action-card" th:href="@{/admin/users}">
+                <strong>Users</strong>
+                <span>View admin, teacher, and student accounts.</span>
+            </a>
+            <a class="action-card" th:href="@{/admin/courses}">
+                <strong>Courses</strong>
+                <span>Create and view courses.</span>
+            </a>
+            <a class="action-card" th:href="@{/admin/subjects}">
+                <strong>Subjects</strong>
+                <span>Add subjects inside courses.</span>
+            </a>
+            <a class="action-card" th:href="@{/admin/enrollments}">
+                <strong>Enrollments</strong>
+                <span>Add students to courses.</span>
+            </a>
+        </div>
+    </section>
+</main>
+</body>
+</html>

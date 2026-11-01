@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}">Assignments</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{common/navbar :: nav}"></div>
+
+<main class="container py-5">
+    <section class="page-panel">
+        <div class="page-header">
+            <div>
+                <p class="small-label">Student</p>
+                <h1>Assignments</h1>
+            </div>
+            <a class="secondary-button inline-button" th:href="@{/student/marks}">Marks</a>
+        </div>
+
+        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+        <div class="action-grid">
+            <div class="action-card" th:each="assignment : ${assignments}">
+                <strong th:text="${assignment.title}">Assignment title</strong>
+                <span th:text="${assignment.course.name}">Java Basics</span>
+                <span th:text="'Due: ' + ${assignment.dueDate}">Due: 2026-08-10</span>
+                <span th:text="'Max Marks: ' + ${assignment.maxMarks}">Max Marks: 20</span>
+                <span class="status-line" th:if="${submittedAssignmentIds.contains(assignment.id)}">Submitted</span>
+                <a class="primary-button inline-button assignment-button"
+                   th:if="${!submittedAssignmentIds.contains(assignment.id)}"
+                   th:href="@{/student/assignments/{id}/submit(id=${assignment.id})}">Submit</a>
+            </div>
+        </div>
+
+        <p th:if="${#lists.isEmpty(assignments)}" class="empty-text">
+            No assignments found for your enrolled courses.
+        </p>
+    </section>
+</main>
+</body>
+</html>

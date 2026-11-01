@@ -1,0 +1,24 @@
+<nav class="navbar" xmlns:th="http://www.thymeleaf.org" th:fragment="nav">
+    <a class="brand" th:href="@{/}">AI Learning Portal</a>
+    <div class="nav-links">
+        <span class="phase-label">Student Project</span>
+        <a th:if="${!loggedIn}" th:href="@{/login}">Login</a>
+        <a th:if="${!loggedIn}" th:href="@{/register/student}">Student Register</a>
+        <a th:if="${!loggedIn}" th:href="@{/register/teacher}">Teacher Register</a>
+        <a th:if="${loggedIn}" th:href="@{/dashboard}">Dashboard</a>
+        <a th:if="${isAdmin}" th:href="@{/admin/courses}">Courses</a>
+        <a th:if="${isAdmin}" th:href="@{/admin/subjects}">Subjects</a>
+        <a th:if="${isAdmin}" th:href="@{/admin/enrollments}">Enrollments</a>
+        <a th:if="${isTeacher}" th:href="@{/teacher/lessons}">Lessons</a>
+        <a th:if="${isTeacher}" th:href="@{/teacher/attendance}">Attendance</a>
+        <a th:if="${isTeacher}" th:href="@{/teacher/assignments}">Assignments</a>
+        <a th:if="${isStudent}" th:href="@{/student/courses}">My Courses</a>
+        <a th:if="${isStudent}" th:href="@{/student/courses}">AI Notes</a>
+        <a th:if="${isStudent}" th:href="@{/student/attendance}">Attendance</a>
+        <a th:if="${isStudent}" th:href="@{/student/assignments}">Assignments</a>
+        <a th:if="${isStudent}" th:href="@{/student/marks}">Marks</a>
+        <form th:if="${loggedIn}" th:action="@{/logout}" method="post" class="logout-form">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+</nav>
